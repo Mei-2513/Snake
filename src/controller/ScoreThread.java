@@ -12,10 +12,10 @@ public class ScoreThread extends Thread {
     @Override
     public void run() {
         while (!gameLogic.isGameOver()) {
-            // Actualiza el puntaje en intervalos regulares
+           
             gameLogic.updateScore();
 
-            // Pausa para la siguiente actualización del puntaje
+           
             try {
                 Thread.sleep(GameConfig.SCORE_UPDATE_INTERVAL);
             } catch (InterruptedException e) {
