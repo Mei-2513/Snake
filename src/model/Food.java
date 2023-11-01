@@ -8,7 +8,7 @@ public class Food {
     private int foodValue;
 
     public Food() {
-        // Inicialización de la comida
+   
         respawn();
     }
 

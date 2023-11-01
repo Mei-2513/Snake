@@ -1,7 +1,8 @@
 package view;
 
 
-import javax.swing.*;
+
+import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
     private GamePanel gamePanel;
@@ -9,22 +10,21 @@ public class GameFrame extends JFrame {
     public GameFrame() {
         setTitle("Snake Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+        setResizable(false);
 
-    public void initUI() {
-        gamePanel = new GamePanel(null);
+        // Inicializa el panel del juego
+        gamePanel = new GamePanel();
         add(gamePanel);
-        pack();
-        setLocationRelativeTo(null);
+
+        pack(); // Ajusta automáticamente el tamaño de la ventana
     }
 
     public void setGamePanel(GamePanel gamePanel) {
-        if (this.gamePanel != null) {
-            remove(this.gamePanel);
-        }
         this.gamePanel = gamePanel;
-        add(this.gamePanel);
-        revalidate();
+    }
+
+    public void initUI() {
+        setLocationRelativeTo(null); // Centra la ventana en la pantalla
     }
 }
 

@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 public class GameLogic {
     private Snake snake;
     private Food food;

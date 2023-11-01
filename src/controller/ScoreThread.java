@@ -1,5 +1,6 @@
 package controller;
 
+import model.GameConfig;
 import model.GameLogic;
 
 public class ScoreThread extends Thread {

@@ -1,6 +1,7 @@
 package controller;
 
-package controller;
+
+
 
 import model.GameLogic;
 import view.GameFrame;
@@ -22,7 +23,7 @@ public class GameController {
         gameFrame.setGamePanel(new GamePanel(gameLogic));
         gameFrame.setVisible(true);
 
-      
+        // Inicia los hilos necesarios para el juego
         Thread scoreThread = new ScoreThread(gameLogic);
         Thread foodThread = new FoodThread(gameLogic);
         Thread obstacleThread = new ObstacleThread(gameLogic);
