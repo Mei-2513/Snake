@@ -1,0 +1,11 @@
+# Intervalo de generación de alimentos (en milisegundos)
+FOOD_GENERATION_DELAY = 5000
+
+# Ancho del tablero
+GRID_WIDTH = 20
+
+# Alto del tablero
+GRID_HEIGHT = 15
+
+# Puntos que se obtienen al comer comida
+FOOD_POINTS = 10

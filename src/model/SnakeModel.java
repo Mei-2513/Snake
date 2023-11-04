@@ -5,11 +5,20 @@ package model;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 
 public class SnakeModel {
-    private List<Point> snake; // Lista de puntos que representan el cuerpo de la serpiente
-    private int direction; // Dirección actual de la serpiente (0: arriba, 1: derecha, 2: abajo, 3: izquierda)
-    private int score; // Puntuación del jugador
+    private List<Point> snake; 
+    private int direction; 
+    private int score; 
+    private int movementDelay;
+    private int gridWidth; 
+    private int gridHeight; 
+    private Food food;
 
     public static final int UP = 0;
     public static final int RIGHT = 1;
@@ -17,12 +26,21 @@ public class SnakeModel {
     public static final int LEFT = 3;
 
     public SnakeModel() {
-        // Inicializar el juego, crear la serpiente, establecer dirección inicial, etc.
+        loadConfigurations("src/resources/config.txt"); 
+       
         snake = new ArrayList<>();
-        snake.add(new Point(5, 5)); // Agregar el punto inicial de la serpiente
+        snake.add(new Point(5, 5)); 
         direction = RIGHT;
         score = 0;
+        food = new Food();
+        
     }
+    
+
+    public Food getFood() {
+        return food;
+    
+}
 
     public List<Point> getSnake() {
         return snake;
@@ -37,7 +55,7 @@ public class SnakeModel {
     }
 
     public void move() {
-        // Mover la serpiente en la dirección actual
+     
         Point head = snake.get(0);
         Point newHead = new Point(head);
         if (direction == UP) {
@@ -54,28 +72,77 @@ public class SnakeModel {
     }
 
     public void changeDirection(int newDirection) {
-        // Cambiar la dirección de la serpiente
+    
         if (Math.abs(newDirection - direction) != 2) {
             direction = newDirection;
         }
     }
 
     public boolean checkCollision() {
-        // Verificar colisiones, como con la pared o con el propio cuerpo
+      
         Point head = snake.get(0);
-        if (head.x < 0 || head.x >= GameConfig.GRID_WIDTH || head.y < 0 || head.y >= GameConfig.GRID_HEIGHT) {
-            return true; // Colisión con la pared
+        if (head.x < 0 || head.x >= gridWidth || head.y < 0 || head.y >= gridHeight) {
+            return true; 
         }
         for (int i = 1; i < snake.size(); i++) {
             if (head.equals(snake.get(i))) {
-                return true; // Colisión con el propio cuerpo
+                return true; 
             }
         }
         return false;
     }
 
     public void increaseScore(int points) {
-        // Incrementar la puntuación del jugador
+      
         score += points;
+    }
+
+    private void loadConfigurations(String configFilePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("SPEED")) {
+                    movementDelay = Integer.parseInt(line.split("=")[1].trim());
+                } else if (line.startsWith("GRID_WIDTH")) {
+                    gridWidth = Integer.parseInt(line.split("=")[1].trim());
+                } else if (line.startsWith("GRID_HEIGHT")) {
+                    gridHeight = Integer.parseInt(line.split("=")[1].trim());
+                }
+             
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void checkFoodCollision() {
+      
+        Point head = snake.get(0);
+        Point foodPos = food.getPosition();
+
+     
+        int headX = (int) Math.round(head.getX());
+        int headY = (int) Math.round(head.getY());
+        int foodX = (int) Math.round(foodPos.getX());
+        int foodY = (int) Math.round(foodPos.getY());
+
+       
+        if (headX == foodX && headY == foodY) {
+          
+            increaseScore(food.getPoints()); 
+            growSnake(); 
+            food.generateNewFood(); 
+        }
+    }
+
+
+
+
+
+
+    private void growSnake() {
+       
+        Point tail = snake.get(snake.size() - 1);
+        snake.add(new Point(tail));
     }
 }

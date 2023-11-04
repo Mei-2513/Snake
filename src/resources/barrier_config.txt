@@ -1,0 +1,3 @@
+# Intervalo de generación de barreras (en milisegundos)
+BARRIER_GENERATION_DELAY = 8000
+

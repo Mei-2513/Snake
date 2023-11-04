@@ -1,36 +1,59 @@
 package model;
 
 
-
 import java.awt.Point;
 import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Food {
-    private Point position; // Posición de la comida
-    private int points; // Puntos que se obtienen al comer esta comida
+    private Point position; 
+    private int points; 
+    private int gridWidth; 
+    private int gridHeight; 
 
     public Food() {
-        // Generar la posición inicial de la comida
+        loadConfigurations("src/resources/food_config.txt"); 
         generateNewFood();
-        points = GameConfig.DEFAULT_FOOD_POINTS; // Asignar puntos por defecto
     }
 
     public Point getPosition() {
-        // Obtener la posición de la comida
+       
         return position;
     }
 
     public int getPoints() {
-        // Obtener los puntos que se obtienen al comer esta comida
+        
         return points;
     }
 
     public void generateNewFood() {
-        // Generar una nueva posición para la comida
         Random random = new Random();
-        int x = random.nextInt(GameConfig.GRID_WIDTH);
-        int y = random.nextInt(GameConfig.GRID_HEIGHT);
+        int x = random.nextInt(gridWidth);
+        int y = random.nextInt(gridHeight);
         position = new Point(x, y);
     }
-}
 
+    private void loadConfigurations(String configFilePath) {
+       
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("GRID_WIDTH")) {
+                  
+                    gridWidth = Integer.parseInt(line.split("=")[1].trim());
+                } else if (line.startsWith("GRID_HEIGHT")) {
+                  
+                    gridHeight = Integer.parseInt(line.split("=")[1].trim());
+                } else if (line.startsWith("FOOD_POINTS")) {
+                    
+                    points = Integer.parseInt(line.split("=")[1].trim());
+                }
+               
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

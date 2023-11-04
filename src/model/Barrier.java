@@ -1,28 +1,49 @@
 package model;
 
-
-
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Random;
 
 public class Barrier {
-    private Point position; // Posición de la barrera
+    private Point position; 
+    private int gridWidth; 
+    private int gridHeight; 
 
     public Barrier() {
-        // Generar la posición inicial de la barrera
+        loadConfigurations("src/resources/barrier_config.txt"); 
         generateNewBarrier();
     }
 
     public Point getPosition() {
-        // Obtener la posición de la barrera
+        
         return position;
     }
 
     public void generateNewBarrier() {
-        // Generar una nueva posición para la barrera
         Random random = new Random();
-        int x = random.nextInt(GameConfig.GRID_WIDTH);
-        int y = random.nextInt(GameConfig.GRID_HEIGHT);
+        int x = random.nextInt(gridWidth);
+        int y = random.nextInt(gridHeight);
         position = new Point(x, y);
+    }
+
+    private void loadConfigurations(String configFilePath) {
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("GRID_WIDTH")) {
+                   
+                    gridWidth = Integer.parseInt(line.split("=")[1].trim());
+                } else if (line.startsWith("GRID_HEIGHT")) {
+                
+                    gridHeight = Integer.parseInt(line.split("=")[1].trim());
+                }
+                
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
