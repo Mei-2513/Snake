@@ -68,6 +68,8 @@ public class SnakeModel {
     }
 
     public void move() {
+    	 checkFoodCollision();
+
      
         Point head = snake.get(0);
         Point newHead = new Point(head);
@@ -136,22 +138,18 @@ public class SnakeModel {
         System.out.println("Food Position: " + foodPos);
 
         if (head.equals(foodPos)) {
-           
             increaseScore(food.getPoints());
             food.generateNewFood();
+            growSnake(); 
         }
     }
 
-
-
-
-
-
-
-
     private void growSnake() {
-       
+        
         Point tail = snake.get(snake.size() - 1);
+
+      
         snake.add(new Point(tail));
     }
+
 }

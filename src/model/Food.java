@@ -2,7 +2,6 @@ package model;
 
 
 import java.awt.Point;
-import java.util.List;
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -40,6 +39,7 @@ public class Food {
 
         position = new Point(foodX, foodY);
     }
+
     
     public boolean foodCollidesWithSnake(int x, int y) {
         Point foodPos = this.position; 
