@@ -1,0 +1,5 @@
+# Velocidad del juego (en milisegundos)
+SPEED = 200
+
+# Tamaño inicial de la serpiente
+INITIAL_SIZE = 3
