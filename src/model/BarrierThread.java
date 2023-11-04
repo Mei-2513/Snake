@@ -1,16 +1,19 @@
 package model;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class BarrierThread extends Thread {
     private Barrier barrier;
-    private int barrierGenerationDelay; 
+    private int barrierGenerationDelay;
+	private SnakeModel model; 
 
-    public BarrierThread(Barrier barrier) {
+    public BarrierThread(Barrier barrier, SnakeModel model) {
         this.barrier = barrier;
         loadConfigurations(); 
+        this.model = model;
     }
 
     private void loadConfigurations() {
@@ -29,14 +32,22 @@ public class BarrierThread extends Thread {
     }
 
     public void run() {
-       
         while (true) {
             barrier.generateNewBarrier();
+
+       
+            Point barrierPosition = barrier.getPosition();
+
+        
+            model.getBarriers().add(barrierPosition);
+
             try {
-                Thread.sleep(barrierGenerationDelay); 
+                Thread.sleep(barrierGenerationDelay);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+
+
 }

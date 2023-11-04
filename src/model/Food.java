@@ -2,6 +2,7 @@ package model;
 
 
 import java.awt.Point;
+import java.util.List;
 import java.util.Random;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,10 +31,42 @@ public class Food {
 
     public void generateNewFood() {
         Random random = new Random();
-        int x = random.nextInt(gridWidth);
-        int y = random.nextInt(gridHeight);
-        position = new Point(x, y);
+        int foodX, foodY;
+
+        do {
+            foodX = random.nextInt(gridWidth);
+            foodY = random.nextInt(gridHeight);
+        } while (foodCollidesWithSnake(foodX, foodY) || foodCollidesWithBarrier(foodX, foodY));
+
+        position = new Point(foodX, foodY);
     }
+    
+    public boolean foodCollidesWithSnake(int x, int y) {
+        Point foodPos = this.position; 
+        if (foodPos != null) {
+            int foodX = (int) Math.round(foodPos.getX());
+            int foodY = (int) Math.round(foodPos.getY());
+            return x == foodX && y == foodY;
+        }
+        return false; 
+    }
+
+
+    public boolean foodCollidesWithBarrier(int x, int y) {
+        Point foodPos = this.position; 
+        if (foodPos != null) {
+            int foodX = (int) Math.round(foodPos.getX());
+            int foodY = (int) Math.round(foodPos.getY());
+            return x == foodX && y == foodY;
+        }
+        return false; 
+    }
+
+
+
+
+    
+    
 
     private void loadConfigurations(String configFilePath) {
        

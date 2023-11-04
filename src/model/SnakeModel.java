@@ -18,7 +18,11 @@ public class SnakeModel {
     private int movementDelay;
     private int gridWidth; 
     private int gridHeight; 
-    private Food food;
+    private Food food;  
+    private List<Point> barriers;
+    private Barrier barrier;
+
+    
 
     public static final int UP = 0;
     public static final int RIGHT = 1;
@@ -30,11 +34,17 @@ public class SnakeModel {
        
         snake = new ArrayList<>();
         snake.add(new Point(5, 5)); 
+        barriers = new ArrayList<>();
         direction = RIGHT;
         score = 0;
         food = new Food();
         
     }
+    
+    public void setBarrier(Barrier barrier) {
+        this.barrier = barrier;
+    }
+
     
 
     public Food getFood() {
@@ -44,6 +54,9 @@ public class SnakeModel {
 
     public List<Point> getSnake() {
         return snake;
+    }
+    public List<Point> getBarriers() {
+        return barriers;
     }
 
     public int getDirection() {
@@ -116,24 +129,20 @@ public class SnakeModel {
     }
     
     public void checkFoodCollision() {
-      
         Point head = snake.get(0);
         Point foodPos = food.getPosition();
 
-     
-        int headX = (int) Math.round(head.getX());
-        int headY = (int) Math.round(head.getY());
-        int foodX = (int) Math.round(foodPos.getX());
-        int foodY = (int) Math.round(foodPos.getY());
+        System.out.println("Head: " + head);
+        System.out.println("Food Position: " + foodPos);
 
-       
-        if (headX == foodX && headY == foodY) {
-          
-            increaseScore(food.getPoints()); 
-            growSnake(); 
-            food.generateNewFood(); 
+        if (head.equals(foodPos)) {
+           
+            increaseScore(food.getPoints());
+            food.generateNewFood();
         }
     }
+
+
 
 
 

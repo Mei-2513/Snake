@@ -21,18 +21,26 @@ public class SnakeView extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
- 
+        
         g.setColor(Color.GREEN);
         for (Point point : model.getSnake()) {
             g.fillRect(point.x * CELL_SIZE, point.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }
         
-    
+        
         Point foodPosition = model.getFood().getPosition();
         g.setColor(Color.RED);
         g.fillRect(foodPosition.x * CELL_SIZE, foodPosition.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-        
+
       
+        g.setColor(Color.BLUE); 
+        for (Point barrierPosition : model.getBarriers()) {
+            g.fillRect(barrierPosition.x * CELL_SIZE, barrierPosition.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+        }
+        
+        
     }
+
+
 
 }

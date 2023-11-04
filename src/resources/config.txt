@@ -3,3 +3,5 @@ SPEED = 200
 
 # Tamaño inicial de la serpiente
 INITIAL_SIZE = 3
+GRID_WIDTH = 10
+GRID_HEIGHT = 10
