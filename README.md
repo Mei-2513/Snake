@@ -1,1 +1,2 @@
 # Snake
+La Estrategia que yo uso para aumentar el puntaje es que cada vez que la serpiente come un objeto de comida el puntaje y el tamaño de la serpiente aumenten esto se puede ver en el metodo checkFoodCollision de la clase SnakeModel. Este metodo lo que hace es: verificar si la cabeza de la serpiente (snake.get(0)) está en la misma posición que el objeto de comida (food.getPosition()). Si es así, se incrementa el puntaje
