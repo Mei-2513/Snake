@@ -21,9 +21,10 @@ public class SnakeController implements KeyListener {
         view.setFocusTraversalKeysEnabled(false);
     }
     
+    
+
     public SnakeController(SnakeModel model) {
         this.model = model;
-        
     }
 
 

@@ -2,6 +2,6 @@
 SPEED = 200
 
 # Tamaño inicial de la serpiente
-SNAKE_LENGTH=3
+SNAKE_LENGTH=6
 GRID_WIDTH = 10
 GRID_HEIGHT = 10

@@ -5,6 +5,9 @@ package model;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+
+import view.SnakeView;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,31 +15,34 @@ import java.io.IOException;
 
 
 public class SnakeModel {
-    private List<Point> snake; 
-    private int direction; 
-    private int score; 
+    private List<Point> snake;
+    private int direction;
+    private int score;
     private int movementDelay;
-    private int gridWidth; 
-    private int gridHeight; 
-    private Food food;  
+    private int gridWidth;
+    private int gridHeight;
+    private Food food;
     private List<Point> barriers;
     private Barrier barrier;
-    private static final int INITIAL_SNAKE_X = 5; // Debes definir y asignar un valor apropiado
+    private SnakeView view;
+    private static final int INITIAL_SNAKE_X = 5; 
     private static final int INITIAL_SNAKE_Y = 5;
-    
+    private int snakeSize;
+    private Point tail; 
+    public static final int B_WIDTH = 800;
+    public static final int B_HEIGHT = 600;
 
-    
 
     public static final int UP = 0;
     public static final int RIGHT = 1;
     public static final int DOWN = 2;
     public static final int LEFT = 3;
 
-    public SnakeModel() {
-        loadConfigurations("src/resources/config.txt"); 
-       
+    public SnakeModel(SnakeView view) {
+        this.view = view;
+        loadConfigurations("src/resources/config.txt");
         snake = new ArrayList<>();
-        snake.add(new Point(5, 5)); 
+        snake.add(new Point(5, 5));
         barriers = new ArrayList<>();
         barrier = new Barrier();
         direction = RIGHT;
@@ -44,6 +50,8 @@ public class SnakeModel {
         food = new Food();
         
     }
+    
+    
     public void setFood(Food food) {
         this.food = food;
     }
@@ -76,24 +84,24 @@ public class SnakeModel {
     public int getScore() {
         return score;
     }
-
     public void move() {
-    	 checkFoodCollision();
-
-     
+        checkFoodCollision();
         Point head = snake.get(0);
         Point newHead = new Point(head);
         if (direction == UP) {
-            newHead.y--;
+            newHead.y = (newHead.y - 1 + B_HEIGHT) % B_HEIGHT;
         } else if (direction == RIGHT) {
-            newHead.x++;
+            newHead.x = (newHead.x + 1) % B_WIDTH;
         } else if (direction == DOWN) {
-            newHead.y++;
+            newHead.y = (newHead.y + 1) % B_HEIGHT;
         } else if (direction == LEFT) {
-            newHead.x--;
+            newHead.x = (newHead.x - 1 + B_WIDTH) % B_WIDTH;
         }
+
         snake.add(0, newHead);
-        snake.remove(snake.size() - 1);
+        if (!food.getPosition().equals(newHead)) {
+            snake.remove(snake.size() - 1);
+        }
     }
 
     public void changeDirection(int newDirection) {
@@ -118,9 +126,12 @@ public class SnakeModel {
     }
 
     public void increaseScore(int points) {
-      
         score += points;
+        if (view != null) {
+            view.updateScore(score); 
+        }
     }
+
 
     private void loadConfigurations(String configFilePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
@@ -142,17 +153,33 @@ public class SnakeModel {
     
     public void checkFoodCollision() {
         Point head = snake.get(0);
-        Point foodPos = food.getPosition();
+        Food food = this.getFood();
 
-        System.out.println("Head: " + head);
-        System.out.println("Food Position: " + foodPos);
-
-        if (head.equals(foodPos)) {
+        if (head.equals(food.getPosition())) {
             increaseScore(food.getPoints());
-            food.generateNewFood();
             growSnake(); 
+            food.generateNewFood();
         }
     }
+
+
+
+   
+
+
+
+    public void growSnake() {
+        Point tail = snake.get(snake.size() - 1); 
+        Point newSegment = new Point(tail.x + 1, tail.y); 
+        snake.add(newSegment); 
+    }
+
+
+
+
+
+    
+
     public boolean checkBarrierCollision(int x, int y) {
         for (Point barrier : barriers) {
             if (barrier.x == x && barrier.y == y) {
@@ -174,18 +201,5 @@ public class SnakeModel {
 
        
     }
-
-
-
-
-    private void growSnake() {
-        
-        Point tail = snake.get(snake.size() - 1);
-
-      
-        snake.add(new Point(tail));
-    }
-
-	
 
 }

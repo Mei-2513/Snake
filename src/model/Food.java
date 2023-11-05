@@ -39,9 +39,10 @@ public class Food {
         } while (foodCollidesWithSnake(foodX, foodY));
 
         position = new Point(foodX, foodY);
-        setFoodLastEatenTime(System.currentTimeMillis()); // Reinicia el tiempo de comida
+        setFoodLastEatenTime(System.currentTimeMillis());
         setFoodGenerated(true);
     }
+
 
 
     
