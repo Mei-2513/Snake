@@ -1,4 +1,7 @@
 # Intervalo de generación de barreras (en milisegundos)
-BARRIER_GENERATION_DELAY = 8000
+BARRIER_GENERATION_DELAY = 3000
+BARRIER_DURATION = 3000
 GRID_WIDTH = 10
 GRID_HEIGHT = 10
+
+

@@ -40,5 +40,3 @@ public class FoodThread extends Thread {
         }
     }
 }
-
-

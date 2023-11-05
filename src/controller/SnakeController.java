@@ -8,6 +8,7 @@ import model.SnakeModel;
 import view.SnakeView;
 
 
+
 public class SnakeController implements KeyListener {
     private SnakeModel model;
     private SnakeView view;

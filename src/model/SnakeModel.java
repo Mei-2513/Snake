@@ -21,6 +21,7 @@ public class SnakeModel {
     private Food food;  
     private List<Point> barriers;
     private Barrier barrier;
+    
 
     
 
@@ -35,10 +36,17 @@ public class SnakeModel {
         snake = new ArrayList<>();
         snake.add(new Point(5, 5)); 
         barriers = new ArrayList<>();
+        barrier = new Barrier();
         direction = RIGHT;
         score = 0;
         food = new Food();
         
+    }
+    public void setFood(Food food) {
+        this.food = food;
+    }
+    public Barrier getBarrier() {
+        return barrier;
     }
     
     public void setBarrier(Barrier barrier) {
@@ -143,6 +151,16 @@ public class SnakeModel {
             growSnake(); 
         }
     }
+    public boolean checkBarrierCollision(int x, int y) {
+        for (Point barrier : barriers) {
+            if (barrier.x == x && barrier.y == y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     private void growSnake() {
         
@@ -151,5 +169,7 @@ public class SnakeModel {
       
         snake.add(new Point(tail));
     }
+
+	
 
 }

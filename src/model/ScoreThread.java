@@ -42,4 +42,3 @@ public class ScoreThread extends Thread {
         }
     }
 }
-

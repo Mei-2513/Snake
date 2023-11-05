@@ -27,6 +27,15 @@ public class Barrier {
         int y = random.nextInt(gridHeight);
         position = new Point(x, y);
     }
+    public boolean foodCollidesWithBarrier(int x, int y) {
+        Point barrierPos = this.position;
+        if (barrierPos != null) {
+            int barrierX = (int) Math.round(barrierPos.getX());
+            int barrierY = (int) Math.round(barrierPos.getY());
+            return x == barrierX && y == barrierY;
+        }
+        return false;
+    }
 
     private void loadConfigurations(String configFilePath) {
         

@@ -10,12 +10,15 @@ public class SnakeThread extends Thread {
     private SnakeModel model;
     private int movementDelay; 
     private SnakeView view;
+    
   
     public SnakeThread(SnakeModel model, SnakeView view) {
         this.model = model;
         this.view = view; 
         loadConfigurations(); 
     }
+    
+   
 
 
     private void loadConfigurations() {
@@ -53,4 +56,3 @@ public class SnakeThread extends Thread {
 
 
 }
-

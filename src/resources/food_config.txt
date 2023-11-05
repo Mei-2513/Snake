@@ -1,11 +1,14 @@
-# Intervalo de generación de alimentos (en milisegundos)
-FOOD_GENERATION_DELAY = 5000
+# Configuración de comida para el juego Snake
 
-# Ancho del tablero
+# Ancho y alto de la cuadrícula del juego
 GRID_WIDTH = 20
-
-# Alto del tablero
 GRID_HEIGHT = 15
 
 # Puntos que se obtienen al comer comida
 FOOD_POINTS = 10
+
+# Duración de la comida en segundos (ejemplo: 30 segundos)
+FOOD_DURATION = 50
+
+# Intervalo de generación de comida en milisegundos (ejemplo: 5000 ms)
+FOOD_GENERATION_DELAY = 5000
