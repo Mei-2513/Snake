@@ -21,6 +21,8 @@ public class SnakeModel {
     private Food food;  
     private List<Point> barriers;
     private Barrier barrier;
+    private static final int INITIAL_SNAKE_X = 5; // Debes definir y asignar un valor apropiado
+    private static final int INITIAL_SNAKE_Y = 5;
     
 
     
@@ -159,6 +161,20 @@ public class SnakeModel {
         }
         return false;
     }
+    public void resetGame() {
+       
+        snake.clear();  
+        snake.add(new Point(INITIAL_SNAKE_X, INITIAL_SNAKE_Y));  
+
+        
+        food.generateNewFood();  
+
+        
+        score = 0;  
+
+       
+    }
+
 
 
 

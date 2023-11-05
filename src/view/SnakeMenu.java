@@ -28,8 +28,7 @@ public class SnakeMenu extends JFrame {
 
     private void startGame() {
         SnakeGame game = new SnakeGame();
-        game.startGame();
-        game.setVisible(true);
+        
     }
 
     public static void main(String[] args) {
