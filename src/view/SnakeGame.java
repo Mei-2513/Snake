@@ -133,10 +133,17 @@ public class SnakeGame extends JFrame{
 
 
     private void gameOver() {
-        
-        JOptionPane.showMessageDialog(view, "Game Over");
+ 
+    	
+    	
+    	    JOptionPane.showMessageDialog(view, "Game Over. Gracias por jugar!");
+    	    System.exit(0);
+    	
+
+
+    	
        
-        model.resetGame();
+       
         
         Score score = new Score();
         score.setDateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));

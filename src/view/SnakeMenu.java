@@ -16,6 +16,7 @@ public class SnakeMenu {
     private JButton startButton;
     private GameConfiguration config;
     private int choice;
+    
 
     private JMenuBar menuBar;
     private JMenu menu;
@@ -27,13 +28,16 @@ public class SnakeMenu {
     }
 
     private void initialize() {
+    	
     
 
     	    
         frame = new JFrame();
+        
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
+        
 
         JLabel nameLabel = new JLabel("Nombre:");
         nameLabel.setBounds(10, 10, 46, 14);
@@ -47,6 +51,10 @@ public class SnakeMenu {
         startButton = new JButton("Iniciar juego");
         startButton.setBounds(10, 58, 117, 23);
         frame.getContentPane().add(startButton);
+        
+        JButton exitButton = new JButton("Salir"); 
+        exitButton.setBounds(140, 58, 117, 23); 
+        frame.getContentPane().add(exitButton);
 
         JLabel developerInfo = new JLabel("Nombre completo: Silvia Juliana Rodriguez Rodriguez");
         developerInfo.setBounds(10, 90, 200, 14);
@@ -85,6 +93,13 @@ public class SnakeMenu {
                 }
             }
         });
+        
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); 
+            }
+        });
         menu.add(scoreHistoryMenuItem);
         menuBar.add(menu);
         frame.setJMenuBar(menuBar);
@@ -100,10 +115,12 @@ public class SnakeMenu {
                 SnakeView view = new SnakeView(model);
                 SnakeGame game = new SnakeGame(model, config);
                 
+                
             }
         });
 
     }
+    
 
     private String selectDifficulty() {
         String difficulty = "";
