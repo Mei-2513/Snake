@@ -21,18 +21,20 @@ import java.util.Date;
 import java.util.List;
 import java.awt.Point;
 
-public class SnakeGame {
-    private SnakeModel model;
+public class SnakeGame extends JFrame{
+	private SnakeModel model;
     private SnakeView view;
     private SnakeController controller;
     private JTextField nameField;
+    private GameConfiguration config;
 
-    public SnakeGame() {
-    	 model = new SnakeModel(view); 
-    	    view = new SnakeView(model); 
-    	    controller = new SnakeController(model, view);
-    	    nameField = new JTextField();
+    public SnakeGame(SnakeModel model, GameConfiguration config) {
+        this.model = model;
+        this.config = config;
 
+        view = new SnakeView(model);
+        controller = new SnakeController(model, view);
+        nameField = new JTextField();
 
         JFrame frame = new JFrame("Snake Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +45,6 @@ public class SnakeGame {
         BarrierThread barrierThread = new BarrierThread(barrier, model);
         Food food = new Food();
         FoodThread foodThread = new FoodThread(food);
-  
 
         model.setBarrier(barrier);
         model.setFood(food);
@@ -68,8 +69,12 @@ public class SnakeGame {
 
         frame.setVisible(true);
     }
+    
+    public SnakeGame() {
+	
+	}
 
-    private void loadWindowDimensions(String configFilePath) {
+	private void loadWindowDimensions(String configFilePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -83,6 +88,7 @@ public class SnakeGame {
             e.printStackTrace();
         }
     }
+
 
 
     private void checkBarrierCollision() {

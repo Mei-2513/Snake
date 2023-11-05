@@ -15,7 +15,7 @@ public class Score implements Serializable {
     }
     
     public Score() {
-        // Constructor sin argumentos
+       
     }
 
 

@@ -1,21 +1,28 @@
 package view;
 
 import javax.swing.*;
+
+import model.SnakeModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.Scanner;
 
 public class SnakeMenu {
     private JFrame frame;
     private JTextField nameField;
     private JButton startButton;
+    private GameConfiguration config;
+    private int choice;
 
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem scoreHistoryMenuItem;
 
     public SnakeMenu() {
+    	config = new GameConfiguration();
         initialize();
     }
 
@@ -87,11 +94,46 @@ public class SnakeMenu {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
                 System.out.println("Has iniciado el juego como " + name);
-                SnakeGame game = new SnakeGame();
+                String difficulty = selectDifficulty();
+                config.applyDifficulty(difficulty);
+                SnakeModel model = new SnakeModel(null);
+                SnakeView view = new SnakeView(model);
+                SnakeGame game = new SnakeGame(model, config);
+                
             }
         });
+
     }
-    
+
+    private String selectDifficulty() {
+        String difficulty = "";
+        Object[] options = {"Fácil", "Medio", "Difícil"};
+
+        choice = JOptionPane.showOptionDialog(frame,
+                                              "Selecciona la dificultad:",
+                                              "Dificultad",
+                                              JOptionPane.DEFAULT_OPTION,
+                                              JOptionPane.INFORMATION_MESSAGE,
+                                              null,
+                                              options,
+                                              options[0]);
+
+        switch (choice) {
+            case 0:
+                difficulty = "Easy";
+                break;
+            case 1:
+                difficulty = "Medium";
+                break;
+            case 2:
+                difficulty = "Hard";
+                break;
+            default:
+                JOptionPane.showMessageDialog(frame, "Opción no válida. Por favor, intenta de nuevo.");
+        }
+
+        return difficulty;
+    }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -105,4 +147,5 @@ public class SnakeMenu {
             }
         });
     }
+
 }
